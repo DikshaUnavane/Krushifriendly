@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://png.pngtree.com/background/20210716/original/pngtree-light-blue-cute-striped-baby-blue-background-picture-image_1348681.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .back-btn::before {
+            content: "\2190";
+            font-size: 22px;
+            margin-right: 5px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section {
+            margin-bottom: 15px;
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .section h3 {
+            margin: 0;
+            color: #333;
+            flex: 1;
+        }
+        .input-box {
+            width: 60%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+        .savings {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .order-btn {
+            display: block;
+            width: 100%;
+            background: #ff6600;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .order-btn:hover {
+            background: #e65c00;
+        }
+        .order-icon {
+            font-size: 50px;
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="back-btn">Back</a>
+    <div class="container">
+        <div class="order-icon">&#128722;</div>
+        <div class="section">
+            <h3>Shipping to:</h3>
+            <input type="text" class="input-box" placeholder=" ">
+        </div>
+        <div class="section">
+            <h3>Items:</h3>
+            <input type="text" class="input-box" placeholder=" ">
+        </div>
+        <div class="section">
+            <h3>Delivery:</h3>
+            <input type="text" class="input-box" placeholder=" ">
+        </div>
+        <div class="section">
+            <h3>Cash/Pay on Delivery Fee:</h3>
+            <input type="text" class="input-box" placeholder=" ">
+        </div>
+        <div class="section total">
+            <h3>Order Total:</h3>
+            <input type="text" class="input-box" placeholder=" ">
+        </div>
+        <a href="#" class="order-btn">Place Your Order</a>
+    </div>
+</body>
+</html>

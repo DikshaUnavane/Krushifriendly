@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm & Garden Features</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://img.freepik.com/free-vector/gradient-background-green-modern-designs_343694-2067.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .back-button img {
+            width: 40px;
+            height: 40px;
+        }
+        .add-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            background: white;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .search-bar input {
+            width: 95%;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        .search-bar img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            filter: hue-rotate(200deg);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 10px;
+        }
+        .feature {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .feature img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="history.back()">
+            <img src="https://cdn-icons-png.flaticon.com/512/93/93634.png" alt="Back">
+        </button>
+        <button class="add-box" onclick="alert('Add new equipment functionality coming soon!')">+ Add more Seeds</button>
+        <h1>Seeds</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for seeds...">
+            <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search">
+        </div>
+        <h2>Farm & Garden</h2>
+        <div class="grid">
+            <div class="feature"><img src="https://cdn-icons-png.flaticon.com/512/1617/1617560.png" alt="Fruits"><p>Fruits</p></div>
+            <div class="feature"><img src="https://cdn-icons-png.flaticon.com/512/1617/1617578.png" alt="Vegetables"><p>Vegetables</p></div>
+            <div class="feature"><img src="https://cdn-icons-png.flaticon.com/512/7687/7687363.png" alt="Flowers"><p>Flowers</p></div>
+            <div class="feature"><img src="https://t4.ftcdn.net/jpg/10/24/51/67/360_F_1024516716_Cz4TIY5nqqqhOt0LidNCRa9aJ4sX4jUz.jpg" alt="Grains"><p>Grains</p></div>
+            <div class="feature"><img src="https://cdn.agclassroom.org/media/uploads/lp425/pulse_bkrd_info_pic.png" alt="Pulses"><p>Pulses</p></div>
+            <div class="feature"><img src="https://st2.depositphotos.com/4265001/11050/v/450/depositphotos_110500600-stock-illustration-sunflower-oil-on-white.jpg" alt="Oil Seeds"><p>Oil Seeds</p></div>
+            <div class="feature"><img src="https://img.freepik.com/free-vector/indian-spices-herbs-composition_1284-35897.jpg" alt="Spices"><p>Spices</p></div>
+            <div class="feature"><img src="https://img.freepik.com/premium-vector/modern-herbal-medicine-company-logo-icon_658271-10622.jpg" alt="Medicinal Plants"><p>Medicinal Plants</p></div>
+            <div class="feature"> <img src="https://img.lovepik.com/free-png/20220109/lovepik-cotton-png-image_401352925_wh860.png" alt="Fibre Crops">
+                <p>Fibre Crops</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

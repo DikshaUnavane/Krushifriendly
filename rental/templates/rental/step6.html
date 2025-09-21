@@ -1,0 +1,523 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krushi Friendly</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #dcdcdc;
+            text-align: center;
+            overflow-x: hidden;
+        }
+  .marketplace-info img {
+            height: 350px; /* Increased height */
+            width: auto;
+          
+        }
+        header {
+            background: #004d00;
+            color: #dcdcdc;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+ nav ul li {
+            position: relative;
+        }
+        nav ul li a {
+            color: #dcdcdc;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+		 .dropdown {
+            display: none;
+            position: absolute;
+            background: #004d00;
+            list-style: none;
+            padding: 5px 0;
+            margin: 0;
+            min-width: 120px;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown li {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .dropdown li:hover {
+            background: #006600;
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: absolute;
+            right: 60px;
+        }
+
+        .notification-container {
+            position: relative;
+            cursor: pointer;
+        }
+        .notification-icon {
+            font-size: 24px;
+            position: relative;
+            padding: 10px;
+            background: none;
+            border-radius: 50%;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 50%;
+        }
+        .notification-dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            width: 200px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        .notification-dropdown ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .notification-dropdown ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+			color : black;
+        }
+        .notification-dropdown ul li:last-child {
+            border-bottom: none;
+        }
+        .notification-dropdown ul li:hover {
+            background: #f0f0f0;
+        }
+        .show {
+            display: block;
+        }
+
+        .account img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        .slideshow {
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            animation: slideshow 30s infinite linear;
+        }
+
+        @keyframes slideshow {
+            0% { background-image: url('https://t3.ftcdn.net/jpg/05/02/18/64/360_F_502186443_Kubg3Wl76uE8BYl1tcAuYYXgGKAaO6r4.jpg'); }
+            20% { background-image: url('https://static.vecteezy.com/system/resources/thumbnails/038/964/479/small_2x/ai-generated-agriculture-farmer-hands-planting-seeds-business-plant-agriculture-concept-farmer-hands-is-planting-seeds-in-the-suburbs-beginning-of-the-seasonal-agricultural-work-photo.jpg'); }
+            60% { background-image: url('https://thumbs.dreamstime.com/b/tractor-modern-agriculture-equipment-6423931.jpg'); }
+            80% { background-image: url('https://media.istockphoto.com/id/638155104/photo/water-sprinklers.jpg?s=612x612&w=0&k=20&c=uD2a0x8RWaDhPizGvvpNSzw5wi8zgAuArrxg166gXkQ='); }
+            100% { background-image: url('https://images.pexels.com/photos/19136192/pexels-photo-19136192/free-photo-of-back-view-of-a-man-walking-on-a-rice-field.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); }
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .search-bar button {
+            padding: 8px 15px;
+            background: #008000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .main-section {
+    padding-top: 20px;  /* Reduced from 100vh */
+    background: #f8f8f8;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+        .container {
+            padding: 40px 20px;
+        }
+		
+
+        .feature-section {
+            background: #004d40;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .feature {
+            width: 45%;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .feature img, .feature-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 50px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .feature p {
+            color: white !important;
+            font-size: 18px;
+            font-weight: bold;
+        }
+		.contact-text {
+    color: black;
+}
+ .language-container {
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            color: #dcdcdc;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background: #004d00;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            list-style: none;
+            padding: 5px 0;
+            margin: 0;
+            min-width: 120px;
+        }
+
+        .language-dropdown li {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .language-dropdown li:hover {
+            background: #006600;m
+        }
+
+        /* .language-container:hover .language-dropdown {
+            display: block;
+        } */
+
+    </style>
+</head>
+<body>
+     
+    <header>
+
+       
+        
+        {% comment %} <img src="D:\Brainaic\EquipmentRental\rental\static\logo.jpg" 
+         alt="Farm Connect Logo" 
+         style="height: 60px; margin-left: 25px;"> {% endcomment %}
+        <img src="{% static 'logo.jpg' %}" 
+     alt="Farm Connect Logo" 
+     style="height: 60px; width: 120px; border-radius: 50%; margin-left: 25px; object-fit: cover;">
+
+        <nav>
+            <ul>
+                <li><a href="{% url "home" %}">Home</a></li>
+                <li>
+                    <a href="#">Categories ▼</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url "tools" %}">Tools</a></li>
+                        <li><a href="{% url "seeds" %}">Seeds</a></li>
+						<li><a href="#">Seedling</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url "about" %}">About Us</a></li>
+                <li><a href="{% url "login" %}">Login</a></li>
+            </ul>
+			 
+        </nav>
+		
+        <div class="header-right">
+             <div class="notification-container">
+        <div class="notification-icon" onclick="toggleNotificationDropdown()">
+            🔔
+            
+        </div>
+        <div id="notification-dropdown" class="notification-dropdown">
+            <ul>
+                <li>📩 Incoming Request</li>
+                <li>✅ Request Accepted</li>
+            </ul>
+        </div>
+    </div>
+            <div class="account">
+			<a href="login_page.html">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Account">
+				</a>
+            </div>
+			 <!-- <div class="language-container">
+
+                <button class="language-btn">Language ▼</button>
+                <ul class="language-dropdown">
+                    <li value="en">English</li>
+                    <li value="hi">हिन्दी</li>
+                    <li value="mr">मराठी</li>
+                
+                </ul>
+            </div>  -->
+        </div>
+    </header>
+
+    <div class="slideshow"></div>
+	
+	
+
+    <div class="hero-text">
+        <h2>Growing Your Farm Starts with the Right Tools – Buy or Rent Here!</h2>
+    </div>
+    <form method="GET" class="search-bar" action="{% url 'search_results' %}">
+        <input type="text" name="q" placeholder="Search equipment..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+
+<section class="marketplace-info" style="
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 50px 10%;
+        background: linear-gradient(135deg, #e0f7e9, #c3e6cb);
+        color: #000; 
+        border-radius: 10px; 
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    ">
+
+    <!-- Left Side: Buyers & Sellers Info -->
+    <div style="width: 55%; padding-right: 30px;">
+        <h2 style="font-size: 32px; color: #004d00; font-weight: bold; line-height: 1.6;">
+            We Connect <span style="color: green;">Buyers & Sellers</span>
+        </h2>
+        <p style="font-size: 18px; line-height: 1.8;">
+            Krushi Friendly is India's online B2B marketplace, connecting farmers
+            and retailers for agricultural products with ease.
+        </p>
+
+        <div style="display: flex; align-items: center; gap: 15px; margin: 25px 0;">
+            <img src="https://media.istockphoto.com/id/1359498219/vector/like-sign-with-green-leaves-in-circle-green-thumb-eco-friendly.jpg?s=612x612&w=0&k=20&c=TDA7kmwuzS7z8JwIJPRPVURDcEvi8n3mVVZ2nUGsDbI=" 
+                 alt="Smart" 
+                 style="width: 60px; height: 60px;">
+            <div>
+                <h3 style="margin: 0; font-size: 22px; color: #004d00;">Smart</h3>
+                <p style="margin: 8px 0 0; font-size: 18px; line-height: 1.8;">
+                    Krushi Friendly is available in multiple languages, ensuring easy accessibility 
+                    and updated features for all users.
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px; margin: 25px 0;">
+            <img src="https://cdn-icons-png.freepik.com/512/5579/5579047.png" 
+                 alt="Easy" 
+                 style="width: 60px; height: 60px;">
+            <div>
+                <h3 style="margin: 0; font-size: 22px; color: #004d00;">Easy</h3>
+                <p style="margin: 8px 0 0; font-size: 18px; line-height: 1.8;">
+                    Krushi Friendly offers a user-friendly platform for buying and selling agricultural 
+                    products effortlessly.
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px; margin: 25px 0;">
+            <span style="font-size: 45px; color: #004d00;">🛡️</span>
+            <div>
+                <h3 style="margin: 0; font-size: 22px; color: #004d00;">Trusted</h3>
+                <p style="margin: 8px 0 0; font-size: 18px; line-height: 1.8;">
+                    Krushi Friendly ensures verified users, secure transactions, and reliable agricultural 
+                    product listings.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side: Image -->
+        <img src="https://media-hosting.imagekit.io//746078d428fb4e2f/ishti.png?Expires=1837013303&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=FXM1V91--vibFEqB99RO7hBF4gObQSIAshJeeb2Cxfos6xgqidiL4c5~a4CgvDKXLfr~WFtcvI2V3CSgz6Mvv4YWoZjqovv7f~sALQBEnDhwdTNAhNREy-chKCm69IbpUYWoEAPIRePahhC-dBa9Y0C3TrIKBADwMgWMxjk~K4Ue-3wr63paAf8AAikkHU5aLiqrAGfSc3PIjfwY6fHvNvCQJJIQPzDsMh9IbYTDHdNoidsBYieSIWxcAr3PcGzh3pBXbT4ARA~nt-mWV3qojZ-y3YOsTu~PLZuhnsSsDLsqBWWUXq7-r25rt5o5OBR~BV9cW0HNNw5dmBiDrsD25Q__" 
+             alt="Buyers & Sellers Connection">
+	
+	
+
+</section>
+
+
+
+  
+
+
+
+<section class="main-section" style="
+background: linear-gradient(135deg, #e0f7e9, #c3e6cb);    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+">        <div class="container">
+            <h1 style = "color: black ;">Krushi Friendly</h1>
+            <div class="feature-section">
+		
+
+                <h2>Why Choose Us?</h2>
+                <div class="features">
+                    <div class="feature"><img src="https://cdn-icons-png.flaticon.com/512/9792/9792988.png"><p>Assurance</p></div>
+                    <div class="feature"><div class="feature-icon">📦</div><p>Low cost for renting</p></div>
+                    
+                        
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <p>Cash on Delivery</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">🔄</div>
+                        <p>Easy Returns</p>
+                    </div>
+                </div>
+            </div>
+            <h2 style="color: black;">Contact Us</h2>
+            <p style="color: black;">Krushi friendly e-services Private Limited</p>
+ <h3 style="color: black; text-align: center; margin-top: 20px;">Follow Us On</h3>
+        <div style="display: flex; justify-content: center; gap: 25px; margin-top: 10px;">
+            <a href="#" style="text-decoration: none;"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="width: 40px;"></a>
+            <a href="#" style="text-decoration: none;"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 40px;"></a>
+            <a href="#" style="text-decoration: none;"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" style="width: 40px;"></a>
+        </div>
+      <button id="scrollToTopBtn" onclick="scrollToTop()" style="
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        ">&#8593;</button>
+    </div>
+    </section>
+   
+	<script>
+    window.onscroll = function() {
+        let button = document.getElementById("scrollToTopBtn");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            button.style.display = "block";
+        } else {
+            button.style.display = "none";
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+	 function toggleNotificationDropdown() {
+            const dropdown = document.getElementById('notification-dropdown');
+            dropdown.classList.toggle('show');
+        }
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.notification-container')) {
+                document.getElementById('notification-dropdown').classList.remove('show');
+            }
+        };
+        
+</script>
+
+
+</body>
+</html>

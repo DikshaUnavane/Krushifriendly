@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krushi Friendly - Book Your Equipment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://img.freepik.com/premium-photo/pale-green-color_179286-64.jpg?semt=ais_hybrid') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(5px);
+            z-index: -1;
+        }
+        .booking-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: #000;
+            width: 350px;
+            text-align: center;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border: 3px solid darkgreen;
+        }
+        select, input, button {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid black;
+            box-sizing: border-box;
+        }
+       .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: green;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #064e1e;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        button {
+            background-color: #357a38;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2e6b32;
+        }
+    </style>
+</head>
+<body>
+
+<a href="javascript:history.back()" class="back-btn">⬅ Back</a>
+
+<div class="booking-container">
+    <h2>Book Your Equipment</h2>
+    <select id="equipment">
+        <option value="tractor">Tractor</option>
+        <option value="plow">Plow</option>
+        <option value="harvester">Harvester</option>
+    </select>
+    <input type="text" id="location" placeholder="Enter Pickup Location">
+    <input type="text" id="drop-location" placeholder="Enter Drop Location">
+    <input type="date" id="start-date">
+    <input type="time" id="start-time">
+    <input type="date" id="end-date">
+    <input type="time" id="end-time">
+    <button onclick="bookNow()">Book Now</button>
+</div>
+
+<script>
+    function bookNow() {
+        const equipment = document.getElementById('equipment').value;
+        const location = document.getElementById('location').value;
+        const dropLocation = document.getElementById('drop-location').value;
+        const startDate = document.getElementById('start-date').value;
+        const startTime = document.getElementById('start-time').value;
+        const endDate = document.getElementById('end-date').value;
+        const endTime = document.getElementById('end-time').value;
+
+        if (!location || !dropLocation || !startDate || !startTime || !endDate || !endTime) {
+            alert('Please fill all the fields!');
+            return;
+        }
+
+        alert(`Booking confirmed!\nEquipment: ${equipment}\nPickup: ${location}\nDrop: ${dropLocation}\nFrom: ${startDate} ${startTime}\nTo: ${endDate} ${endTime}`);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriShop - Secure Payment</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://png.pngtree.com/background/20210716/original/pngtree-light-blue-cute-striped-baby-blue-background-picture-image_1348681.jpg') no-repeat center center/cover;
+            position: relative;
+        }
+        .container {
+            width: 80%;
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #218838;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border: 2px solid #218838;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            background: #fff;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .option:hover, .option.selected {
+            background: #218838;
+            color: white;
+        }
+        .option input {
+            display: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: #ffc107;
+            color: #000;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #e0a800;
+        }
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            font-weight: bold;
+            color:black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="goBack()">&larr; Back</button>
+    <div class="container">
+        <h2>Select Your Payment Method</h2>
+        <div class="option" onclick="selectPayment('cod', this)">
+            <input type="radio" name="payment" id="cod"> Cash on Delivery
+        </div>
+        <div class="option" onclick="selectPayment('upi', this)">
+            <input type="radio" name="payment" id="upi"> Pay by UPI (Stripe, Razorpay)
+        </div>
+        
+        <button class="btn" onclick="proceedPayment()">Proceed to Pay</button>
+    </div>
+    <script>
+        function selectPayment(method, element) {
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById(method).checked = true;
+        }
+
+        function proceedPayment() {
+            let selected = document.querySelector('input[name="payment"]:checked');
+            if (selected) {
+                alert('Payment method selected: ' + selected.id);
+                window.location.href = "/payment2/"; // Redirects to Django's view for payment2.html
+            } else {
+                alert('Please select a payment method.');
+            }
+        }
+        
+        
+        
+        
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

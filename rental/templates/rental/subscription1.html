@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agri Rental Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom, #2f6d2d, #000);
+      color: white;
+      min-height: 100vh;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .max-w-2xl {
+      max-width: 42rem;
+    }
+
+    .text-4xl {
+      font-size: 2.25rem;
+      font-weight: 800;
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+    }
+
+    .text-gray-300 {
+      color: #d1d5db;
+    }
+
+    .text-gray-400 {
+      color: #9ca3af;
+    }
+
+    .text-green-400 {
+      color: #68d391;
+    }
+
+    .bg-yellow-500 {
+      background-color: #fbbf24;
+    }
+
+    .bg-yellow-600 {
+      background-color: #f59e0b;
+    }
+
+    .hover\:bg-yellow-600:hover {
+      background-color: #f59e0b;
+    }
+
+    .transition {
+      transition: all 0.3s ease;
+    }
+
+    .shadow-lg {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .rounded-full {
+      border-radius: 9999px;
+    }
+
+    .rounded-xl {
+      border-radius: 0.75rem;
+    }
+
+    .bg-gray-900 {
+      background-color: #1a202c;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+      border: 1px solid #2d3748;
+      margin-top: 3rem;
+    }
+
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-5 { margin-top: 1.25rem; }
+    .mt-12 { margin-top: 3rem; }
+
+    .px-8 { padding-left: 2rem; padding-right: 2rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 1rem 0;
+      font-size: 1.125rem;
+    }
+
+    .plan-button {
+      padding: 0.75rem 2rem;
+      background-color: #fbbf24;
+      color: black;
+      font-weight: bold;
+      border-radius: 9999px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      margin: 0.5rem;
+    }
+
+    .plan-button:hover {
+      background-color: #f59e0b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="max-w-2xl">
+    <h2 class="text-4xl">Smart Farming, Smarter Renting.</h2>
+    <p class="mt-3 text-lg text-gray-300">
+      Unlock 2 months of Premium Equipment Rental for just ₹119 and maximize your harvest.
+    </p>
+
+    <button id="rentalButton" class="plan-button" onclick="window.location.href='/subscription2/'">
+    Try 2 months for ₹119
+</button>
+
+
+    <p class="mt-3 text-sm text-gray-400 italic">
+      ₹119 for 2 months, then ₹119 per month after. Offer available for new users only.
+    </p>
+  </div>
+
+  <div class="bg-gray-900 max-w-2xl">
+    <h3 class="text-2xl font-semibold text-green-400">Why Choose Our Rental Service?</h3>
+    <ul class="mt-4">
+      <li>🚜 <strong>Latest Farming Equipment:</strong> Rent cutting-edge tools for efficiency.</li>
+      <li>🔧 <strong>Well-Maintained & Ready:</strong> No worries about breakdowns.</li>
+      <li>💰 <strong>Affordable & Flexible:</strong> Plans that fit every farmer’s budget.</li>
+      <li>📅 <strong>On-Demand Availability:</strong> Book when you need it, no long-term commitment.</li>
+    </ul>
+  </div>
+
+  <div class="bg-gray-900 max-w-2xl mt-12">
+    <h3 class="text-2xl font-semibold text-green-400">More Rental Plans</h3>
+    <a href="{% url "subscription3" %}">
+    <button class="plan-button">6 Months for ₹599</button>
+</a>
+<a href="{% url "subscription4" %}">
+    <button class="plan-button">1 Year for ₹999</button>
+</a>
+
+  </div>
+
+  
+
+</body>
+</html>

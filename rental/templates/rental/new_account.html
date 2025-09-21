@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+		.back-button {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 39px;
+            color:  #FFFFFF;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .header h2 {
+            color: #0073b7;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        .profile-info label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+		.required::after {
+            content: " *";
+            color: red;
+        }
+		input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+		.error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+		
+        .profile-info input, .profile-info select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+          .save-btn {
+            background-color: #0073b7;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+      body {
+    background-color: #e8f5e9; /* Light Green Background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    border: 3px solid #1b5e20; /* Dark Green Border */
+    border-radius: 10px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-btn, .save-btn {
+    background-color: #28a745; /* Green */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn:hover, .save-btn:hover {
+    background-color: #218838; /* Darker Green */
+}
+ .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+			}
+.header h2 {
+    color: #28a745; /* Green */
+}
+
+
+    </style>
+    <script>
+	
+	 function validateForm() {
+            let isValid = true;
+            const requiredFields = document.querySelectorAll(".required-input");
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.nextElementSibling.textContent = "This field is required.";
+                } else {
+                    field.nextElementSibling.textContent = "";
+                }
+            });
+            return isValid;
+        }
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".save-btn").addEventListener("click", function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+        });
+        const statesByCountry = {
+            "India": ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"],
+            "USA": ["California", "Texas", "New York", "Florida", "Illinois"],
+            "Canada": ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba"],
+            "Australia": ["New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia"],
+            "UK": ["England", "Scotland", "Wales", "Northern Ireland"]
+        };
+
+        function updateStates() {
+            const countrySelect = document.getElementById("country");
+            const stateSelect = document.getElementById("state");
+            const selectedCountry = countrySelect.value;
+
+            stateSelect.innerHTML = "<option value=''>Select State</option>";
+            if (statesByCountry[selectedCountry]) {
+                statesByCountry[selectedCountry].forEach(state => {
+                    const option = document.createElement("option");
+                    option.value = state;
+                    option.textContent = state;
+                    stateSelect.appendChild(option);
+                });
+            }
+        }   const citiesByState = {
+            "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
+            "Karnataka": ["Bagalkot", "Ballari", "Belagavi", "Bengaluru Rural", "Bengaluru Urban", "Bidar", "Chamarajanagar", "Chikkaballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davanagere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru", "Raichur", "Ramanagara", "Shivamogga", "Tumakuru", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"],
+            "Tamil Nadu": ["Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kallakurichi", "Kancheepuram", "Kanniyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivaganga", "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tirupattur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
+            "Uttar Pradesh": ["Agra", "Aligarh", "Allahabad", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", "Faizabad", "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddha Nagar", "Ghaziabad", "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hardoi", "Hathras", "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", "Kasganj", "Kaushambi", "Kushinagar", "Lakhimpur Kheri", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", "Raebareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", "Shahjahanpur", "Shamli", "Shravasti", "Siddharthnagar", "Sitapur", "Sonbhadra", "Sultanpur", "Unnao", "Varanasi"]
+        };
+
+        function updateCities() {
+            const stateSelect = document.getElementById("state");
+            const citySelect = document.getElementById("city");
+            const selectedState = stateSelect.value;
+
+            citySelect.innerHTML = "<option value=''>Select City/District</option>";
+            if (citiesByState[selectedState]) {
+                citiesByState[selectedState].forEach(city => {
+                    const option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        }
+  
+    document.addEventListener("DOMContentLoaded", function () {
+    const inputs = document.querySelectorAll(".profile-info input, .profile-info select");
+    const editButton = document.querySelector(".edit-btn");
+    const saveButton = document.querySelector(".save-btn");
+
+    function toggleInputs(disabled) {
+        inputs.forEach(input => input.disabled = disabled);
+    }
+
+    // Allow initial input, disable after first save
+    let isSaved = false;
+
+    saveButton.addEventListener("click", function () {
+        if (!isSaved) {
+            isSaved = true;
+        }
+        toggleInputs(true);
+    });
+
+    editButton.addEventListener("click", function () {
+        toggleInputs(false);
+    });
+});
+  function validateInput() {
+            const mobileInput = document.getElementById("mobile");
+            const pincodeInput = document.getElementById("pincode");
+            const mobileError = document.getElementById("mobile-error");
+            const pincodeError = document.getElementById("pincode-error");
+            let isValid = true;
+
+            // Validate Mobile Number
+            const mobilePattern = /^[0-9]{10}$/;
+            if (!mobilePattern.test(mobileInput.value)) {
+                mobileError.textContent = "Mobile number must be exactly 10 digits and contain only numbers.";
+                isValid = false;
+            } else {
+                mobileError.textContent = "";
+            }
+
+            // Validate Pincode
+            const pincodePattern = /^[0-9]{6}$/;
+            if (!pincodePattern.test(pincodeInput.value)) {
+                pincodeError.textContent = "Pincode must be exactly 6 digits and contain only numbers.";
+                isValid = false;
+            } else {
+                pincodeError.textContent = "";
+            }
+
+            return isValid;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("mobile").addEventListener("input", function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+            });
+            document.getElementById("pincode").addEventListener("input", function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 6);
+            });
+        });
+</script>
+
+    
+</head>
+<body>
+<a href="#" class="back-button" onclick="history.back(); return false;" style="color: green; font-size: 38px; font-weight: bold; text-decoration: none;">
+    &#8592;
+</a>
+
+
+
+
+    <div class="container">
+        <div class="header">
+            <h2>Account Info</h2>
+			 <button class="edit-btn">Edit Info</button>
+        </div>
+
+        <div class="profile-info">
+           <label class="required">Name</label>
+            <input type="text" class="required-input" placeholder="Enter your name">
+            <div class="error"></div>
+
+
+            <label class="required">Password</label>
+            <input type="password" class="required-input" placeholder="Enter password">
+            <div class="error"></div>
+			
+			<label class="required">Mobile Number</label>
+            <input type="text" class="required-input" id="mobile" placeholder="Enter your mobile number" maxlength="10">
+            <div class="error"></div>
+
+
+			  <div class="error"></div>
+            <label class="required">OTP</label>
+            <input type="text" class="required-input" placeholder="Enter OTP" maxlength="6">
+            <div class="error" id="OTP-error"></div>
+
+        
+             <label class="required">Email</label>
+            <input type="email" class="required-input" placeholder="Enter your email">
+            <div class="error"></div>
+
+
+              
+ <label class="required">Country</label>         
+ <select id="country" class="required-input" onchange="updateStates()">
+                <option value="">Select Country</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="UK">UK</option>
+            </select>
+			  <div class="error"></div>
+
+            <label class="required">State</label>
+			
+            <select id="state" class="required-input" onchange="updateCities()">
+                <option value="">Select State</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+            </select>
+			 <div class="error"></div>
+
+            <label class="required">City/District</label>
+            
+            <select id="city" class="required-input">
+                <option value="">Select City/District</option>
+            </select>
+			
+			
+			
+			   <div class="error"></div>
+            <label class="required">Taluka</label>
+            <select class="required-input">
+                <option value="">Select Taluka</option>
+            </select>
+			
+	 <div class="error"></div>
+            <label class="required">Area</label>
+            <input type="text" class="required-input" placeholder="Enter your area">
+			
+			<div class="error"></div>
+
+            <label class="required">Pincode</label>
+			
+ <input type="text" class="required-input" id="pincode" placeholder="Enter your pincode" maxlength="6">
+            <div class="error"></div>
+
+			
+	<button class="save-btn">Save Info</button>
+    </div>
+ </div>
+    
+</body>
+</html>

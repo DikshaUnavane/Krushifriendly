@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Agricultural Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 400px;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            text-align: center;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .spotify-btn { background-color: #1db954; color: white; }
+        .spotify-btn:hover { background-color: #17a447; }
+        .google-btn { background-color: #4285F4; color: white; }
+        .google-btn:hover { background-color: #3367D6; }
+        .plan-details {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌾 Premium Agricultural Plan 🌱</h2>
+        <div class="plan-details">
+            <p>Get access to advanced farming tools and resources.</p>
+            <h3>₹119 for 2 months</h3>
+            <p>Starting on 27 May 2025: ₹119/month</p>
+        </div>
+        <button class="btn spotify-btn" onclick="processPayment('UPI & Cards')">Continue with UPI & Cards</button>
+        <button class="btn google-btn" onclick="processPayment('Google Play')">Continue with Google Pay</button>
+    </div>
+    <script>
+        function processPayment(method) {
+            alert("Redirecting to " + method + " payment gateway...");
+            // Here you can integrate actual payment gateway logic.
+        }
+    </script>
+    
+
+</body>
+</html>

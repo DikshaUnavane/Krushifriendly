@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm & Garden Features</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://img.freepik.com/free-vector/gradient-background-green-modern-designs_343694-2067.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .back-button img {
+            width: 40px;
+            height: 40px;
+        }
+        .add-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            background: white;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .search-bar input {
+            width: 95%;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        .search-bar img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            filter: hue-rotate(200deg);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 10px;
+        }
+        .feature {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .feature img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="history.back()">
+            <img src="https://cdn-icons-png.flaticon.com/512/93/93634.png" alt="Back">
+        </button>
+        <button class="add-box" onclick="window.location.href='{% url 'subscription1' %}'">+ Add Equipment</button>
+
+        <h1>Tools</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for seeds...">
+            <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search">
+        </div>
+        <h2>Farm & Garden</h2>
+        <div class="grid">
+            <div class="feature"><img src="https://cdn-icons-png.flaticon.com/512/3159/3159588.png" alt="Brush Cutter"><p>Brush Cutter</p></div>
+            <div class="feature"><img src="https://cdn-icons-png.freepik.com/256/6929/6929128.png" alt="Sprayers"><p>Sprayers</p></div>
+            <div class="feature"><img src="https://cdn-icons-png.flaticon.com/512/517/517551.png" alt="Harvester"><p>Harvester</p></div>
+            <div class="feature"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlpvu9wvRcd1lod8gzPTlq0cl6tgSYyNYOHxnHqpPVsXt7bvtAUzdh_Pw7vRBV9LbywPE&usqp=CAU" alt="Cultivator | Tiller | Weeder"><p>Cultivator | Tiller | Weeder</p></div>
+            <div class="feature"><img src="https://www.hilti.in/content/hilti/A2/IN/en/engineering/design-center/fire-protection1/_jcr_content/mainSection/mainColumn/three_image_text_col_391866116/image_text_column_1/image.coreimg.png/1711509206788/firestop-sprinkler.png" alt="Pipe & Sprinklers"><p>Pipe & Sprinklers</p></div>
+            <div class="feature"><img src="https://img.freepik.com/premium-vector/agriculture-tools-dig-fork-shovel-icon-simple-editable-vector-illustration_996135-40677.jpg" alt="Basic Agriculture Tools"><p>Basic Agriculture Tools</p></div>
+            <div class="feature"><img src="https://us.123rf.com/450wm/terd486/terd4862212/terd486221200008/203370379-clipart-of-cartoon-version-of-cow-cart-vector-illustration.jpg?ver=6" alt="Bullock Carts"><p>Bullock Carts</p></div>
+            <div class="feature"><img src="https://5.imimg.com/data5/ANDROID/Default/2023/1/FP/EB/FK/46786312/product-jpeg-500x500.jpg" alt="Haramba Thresher"><p>Haramba Thresher</p></div>
+        </div>
+    </div>
+</body>
+</html>

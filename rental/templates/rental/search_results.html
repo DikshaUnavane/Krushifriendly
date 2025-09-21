@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Equipment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e8f5e9; /* Light green background */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 900px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        h2 {
+            text-align: center;
+            color: #2e7d32; /* Dark green */
+            font-weight: bold;
+        }
+        .search-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .search-box input {
+            width: 70%;
+            padding: 8px;
+            border: 2px solid #388e3c;
+            border-radius: 5px;
+        }
+        .search-box button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-box button:hover {
+            background-color: #1b5e20;
+        }
+        .card {
+            border: 1px solid #4caf50; /* Green border */
+            border-radius: 10px;
+        }
+        .card-title {
+            color: #1b5e20;
+            font-weight: bold;
+        }
+        .rent-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .rent-btn:hover {
+            background-color: #1b5e20;
+        }
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-btn:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Back Button -->
+    <a href="{% url 'home' %}" class="back-btn">⬅</a>
+
+    <h2>🔍 Search Equipment</h2>
+
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'equipment_list" class="mb-3">
+        <div class="search-box">
+            <input type="text" name="q" class="form-control" placeholder="Enter equipment name..." value="{{ query }}">
+            <button type="submit">🔎 Search</button>
+        </div>
+    </form>
+
+    <hr>
+
+    <!-- Display Search Results -->
+    {% if equipment_list %}
+        <h3 class="text-success">Results for "{{ query }}":</h3>
+        {% for equipment in equipment_list %}
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if equipment.image %}
+                            <img src="{{ equipment.image.url }}" class="img-fluid rounded-start" alt="{{ equipment.name }}">
+                        {% else %}
+                            <img src="/static/default_image.jpg" class="img-fluid rounded-start" alt="Default Image">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">🌱 {{ equipment.name }}</h5>
+                            <p class="card-text">💰 Price: ₹{{ equipment.price }}</p>
+                            <p class="card-text">📄 Specification: {{ equipment.specifications|default:"No specification provided" }}</p>
+                            <a href="{% url 'rent_equipment' equipment.id %}" class="rent-btn">🛒 Rent</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-danger">⚠️ No equipment found for "{{ query }}".</p>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Equipment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Green-themed styling */
+        body {
+            background-color: #eaf7ea;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 128, 0, 0.2);
+            margin-top: 50px;
+            position: relative;
+        }
+        .header-title {
+            color: #2e7d32;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .btn-primary, .btn-warning {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background-color: #4caf50;
+            border: none;
+        }
+        .btn-warning {
+            background-color: #ff9800;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #d32f2f;
+            border: none;
+            width: 100%;
+        }
+        .alert-success {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 15px;
+            background: #4caf50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 128, 0, 0.3);
+        }
+        .mandatory-note {
+            color: red;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Success Notification -->
+<div id="successAlert" class="alert-success">
+    ✅ Image uploaded successfully!
+</div>
+
+<!-- Upload Equipment Form -->
+<div class="container" id="uploadFormContainer">
+    <h2 class="header-title">🌿 Upload Equipment</h2>
+
+    <form method="post" enctype="multipart/form-data" id="uploadForm"></form>
+
+
+        <!-- Equipment Name -->
+        <div class="mb-3">
+            <label class="form-label">🌱 Equipment Name:</label>
+           
+        </div>
+
+        <!-- Renting Price -->
+        <div class="mb-3">
+            <label class="form-label">💰 Renting Price (Per Day):</label>
+            <input type="number" name="price" id="priceInput" class="form-control" placeholder="Enter price per day" min="1" required>
+        </div>
+
+        <!-- Equipment Specification -->
+        <label class="form-label">📜 Specification:</label>
+        <textarea name="specification" id="specificationInput" class="form-control" placeholder="Enter equipment specifications" rows="3" required></textarea>
+
+        <!-- 🔽 NOC Section -->
+        <h5 class="mt-4">📜 Upload NOC (Mandatory)</h5>
+        <button type="button" class="btn btn-warning" id="downloadNocBtn">📥 Download NOC Template</button>
+        <p class="mandatory-note">⚠️ NOC must have a stamp from a Government Authority.</p>
+
+        <div class="mb-3">
+            <label class="form-label">📸 Upload NOC (Image Format):</label>
+            <input type="file" name="noc_image" id="nocImageInput" class="form-control" accept="image/*" required>
+        </div>
+
+        <!-- 📑 Bill Upload -->
+        <h5 class="mt-4">📑 Upload Equipment Bill</h5>
+        <div class="mb-3">
+            <label class="form-label">📄 Upload Bill (PDF Format):</label>
+            <input type="file" name="equipment_bill" id="billInput" class="form-control" accept="application/pdf" required>
+        </div>
+
+        <!-- 📸 Equipment Image Upload -->
+        <h5 class="mt-4">🖼️ Upload Equipment Image</h5>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">🚀 Upload</button>
+    </form>
+</div>
+
+<script>
+    // NOC Template Download
+    document.getElementById("downloadNocBtn").addEventListener("click", function() {
+        window.location.href = "/static/templates/NOC_Template.pdf"; // Update with your actual path
+    });
+
+    // File upload logic
+    document.getElementById("chooseFileBtn").addEventListener("click", function() {
+        document.getElementById("fileInput").click();
+    });
+
+    // Show success notification after form submission
+    document.getElementById("uploadForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let nocImage = document.getElementById("nocImageInput").files.length;
+        let billFile = document.getElementById("billInput").files.length;
+        let equipmentImage = document.getElementById("fileInput").files.length;
+
+        if (nocImage === 0 || billFile === 0 || equipmentImage === 0) {
+            alert("⚠️ Please upload all required documents (NOC, Bill, and Equipment Image).");
+            return;
+        }
+
+        let successAlert = document.getElementById("successAlert");
+        successAlert.style.display = "block";
+
+        setTimeout(() => {
+            successAlert.style.display = "none";
+            event.target.submit();
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
