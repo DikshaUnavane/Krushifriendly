@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Equipment</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body { background-color: #eaf7ea; font-family: Arial, sans-serif; }
+    .container { max-width: 700px; background:#fff; padding:20px; border-radius:10px;
+      box-shadow:0 0 15px rgba(0,128,0,0.15); margin-top:50px; }
+    .header-title { color:#2e7d32; text-align:center; font-weight:bold; margin-bottom:20px; }
+    .form-label { font-weight:bold; color:#2e7d32; }
+    .btn-primary, .btn-warning { width:100%; margin-top:10px; }
+    .btn-primary { background-color:#4caf50; border:none; }
+    .btn-warning { background-color:#ff9800; border:none; }
+    .btn-danger { background-color:#d32f2f; border:none; width:100%; }
+    .alert-success, .alert-warning { display:none; position:fixed; top:10px; right:10px; padding:15px;
+      color:white; border-radius:5px; box-shadow:0 0 10px rgba(0,0,0,0.2); z-index:1000; }
+    .alert-success { background:#4caf50; }
+    .alert-warning { background:#ff9800; }
+    .mandatory-note { color:red; font-size:14px; font-weight:bold; margin-top:5px; }
+    .result-box { margin-top:15px; padding:12px; border-radius:8px; background:#f1f8f1; }
+  </style>
+</head>
+<body>
+
+  <!-- Alerts -->
+  <div id="successAlert" class="alert-success">✅ Image uploaded successfully! (Agri detected)</div>
+  <div id="warningAlert" class="alert-warning">⚠️ Image is non-agri, not accepted.</div>
+
+  <div class="container" id="uploadFormContainer">
+    <h2 class="header-title">🌿 Upload Equipment</h2>
+
+    <form method="post" enctype="multipart/form-data" id="uploadForm">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label">🌱 Equipment Name:</label>
+        <input type="text" name="name" id="nameInput" class="form-control" placeholder="Enter equipment name" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">💰 Renting Price (Per Day):</label>
+        <input type="number" name="price" id="priceInput" class="form-control" placeholder="Enter price per day" min="1" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">📜 Specification:</label>
+        <textarea name="specification" id="specificationInput" class="form-control" placeholder="Enter equipment specifications" rows="3" required></textarea>
+      </div>
+
+      <h5 class="mt-4">📜 Upload NOC (Mandatory)</h5>
+      <button type="button" class="btn btn-warning" id="downloadNocBtn">📥 Download NOC Template</button>
+      <p class="mandatory-note">⚠️ NOC must have a stamp from a Government Authority.</p>
+      <div class="mb-3">
+        <label class="form-label">📸 Upload NOC (Image Format):</label>
+        <input type="file" name="noc_image" id="nocImageInput" class="form-control" accept="image/*" required>
+      </div>
+
+      <h5 class="mt-4">📑 Upload Equipment Bill</h5>
+      <div class="mb-3">
+        <label class="form-label">📄 Upload Bill (PDF Format):</label>
+        <input type="file" name="equipment_bill" id="billInput" class="form-control" accept="application/pdf" required>
+      </div>
+
+      <h5 class="mt-4">🖼️ Upload Equipment Image</h5>
+      <div class="mb-3">
+        <label class="form-label">📷 Equipment Image (jpg/png):</label>
+        <input type="file" name="equipment_image" id="equipmentImageInput" class="form-control" accept="image/*" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">🚀 Upload</button>
+    </form>
+
+    <div id="predictionResult" class="result-box" style="display:none;">
+      <h5>Prediction</h5>
+      <p id="predLabel"></p>
+      <p id="predProb"></p>
+      <div id="previewImageContainer"></div>
+      <p id="savedPath" style="font-size:0.9em;color:green;"></p>
+    </div>
+
+  </div>
+
+  <script>
+    // NOC Template Download
+    document.getElementById("downloadNocBtn").addEventListener("click", function() {
+      window.location.href = "/static/templates/NOC_Template.pdf";
+    });
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    document.getElementById("uploadForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const nocImage = document.getElementById("nocImageInput").files.length;
+      const billFile = document.getElementById("billInput").files.length;
+      const equipmentImage = document.getElementById("equipmentImageInput").files.length;
+      if (nocImage === 0 || billFile === 0 || equipmentImage === 0) {
+        alert("⚠️ Please upload all required documents (NOC, Bill, and Equipment Image).");
+        return;
+      }
+
+      const form = document.getElementById("uploadForm");
+      const formData = new FormData(form);
+
+      try {
+      // ✅ Use the AJAX endpoint URL defined in urls.py
+      const resp = await fetch("{% url 'predict_ajax' %}", {
+        method: "POST",
+        headers: { 'X-CSRFToken': csrftoken },
+        body: formData
+      });
+
+        const data = await resp.json();
+
+        // show alerts
+        const successAlert = document.getElementById("successAlert");
+        const warningAlert = document.getElementById("warningAlert");
+
+        if(data.label === "agri") {
+          successAlert.style.display = "block";
+          warningAlert.style.display = "none";
+        } else {
+          successAlert.style.display = "none";
+          warningAlert.style.display = "block";
+        }
+
+        setTimeout(() => { successAlert.style.display="none"; warningAlert.style.display="none"; }, 2000);
+
+        // show prediction box
+        const resultBox = document.getElementById("predictionResult");
+        resultBox.style.display = "block";
+        document.getElementById("predLabel").textContent = "Label: " + data.label.toUpperCase();
+        document.getElementById("predProb").textContent = "Probability: " + (data.prob*100).toFixed(1) + "%";
+
+        const previewContainer = document.getElementById("previewImageContainer");
+        previewContainer.innerHTML = "";
+        if(data.preview_url) {
+          const img = document.createElement("img");
+          img.src = data.preview_url;
+          img.style.maxWidth = "400px";
+          img.alt = "Uploaded equipment image";
+          previewContainer.appendChild(img);
+        }
+
+        document.getElementById("savedPath").textContent = data.saved_path ? ("Saved to: " + data.saved_path) : "";
+
+      } catch(err) {
+        console.error(err);
+        alert("Upload failed: " + err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
