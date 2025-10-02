@@ -10,7 +10,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('forgot-password/', views.forgot_password, name='fp'), 
     path('create-account/', views.create_account, name='new_account'),
-    path('upload/', views.upload_equipment, name='upload_equipment'),
+    # path('upload/', views.upload_equipment, name='upload_equipment'),
     path('equipment_list/', views.equipment_list, name='equipment_list'),
     path('search/', views.search_equipment, name='search_results'),
     path('rent/<int:equipment_id>/', views.rent_equipment, name='rent_equipment'),
@@ -21,4 +21,6 @@ urlpatterns = [
     path('subscription2/', views.subscription2, name='subscription2'),
     path('subscription3/', views.subscription3, name='subscription3'),
     path('subscription4/', views.subscription4, name='subscription4'),
+    path('upload/', views.new_upload, name='new_upload'),
+    path('predict_ajax/', views.predict_ajax, name='predict_ajax'),
 ]
