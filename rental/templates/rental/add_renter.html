@@ -1,0 +1,33 @@
+<!-- templates/add_renter.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Renter</title>
+</head>
+<body>
+    <h1>Add Renter Details</h1>
+    <form method="post" id="renterForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Hidden fields for latitude and longitude -->
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+        <button type="submit">Save</button>
+    </form>
+
+    <script>
+        // Get user location automatically
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('latitude').value = position.coords.latitude;
+                document.getElementById('longitude').value = position.coords.longitude;
+            }, function(error) {
+                alert("Could not get location. Please allow location access.");
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+</body>
+</html>

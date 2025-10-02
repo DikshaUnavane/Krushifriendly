@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Krushi Friendly - Payment History</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6f9f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+        .back-btn {
+            background: white;
+            color: #2e7d32;
+            border: 2px solid #2e7d32;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background: #2e7d32;
+            color: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #2e7d32;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #4caf50;
+            color: white;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+        .status-success { color: green; font-weight: bold; }
+        .status-failed { color: red; font-weight: bold; }
+        .status-pending { color: orange; font-weight: bold; }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #f1f1f1;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Krushi Friendly</h1>
+        <a href="javascript:history.back()" class="back-btn">← Back</a>
+    </header>
+
+    <div class="container">
+        <h2>Payment History</h2>
+        {% if payments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>{{ payment.item_name }}</td>
+                    <td>₹{{ payment.amount }}</td>
+                    <td>{{ payment.payment_date|date:"M d, Y H:i" }}</td>
+                    <td>
+                        <span class="status-{{ payment.status|lower }}">
+                            {{ payment.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No payment history available.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        © {{ now|date:"Y" }} Krushi Friendly. All rights reserved.
+    </footer>
+</body>
+</html>

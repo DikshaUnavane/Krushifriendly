@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Account</title>
+    <style>
+        body {
+            background-color: #e8f5e9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 38px;
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid #1b5e20;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .header h2 {
+            color: #28a745;
+        }
+
+        .profile-info label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .save-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<a href="#" class="back-button" onclick="history.back(); return false;">&#8592;</a>
+
+<div class="container">
+    <div class="header">
+        <h2>Create Account</h2>
+    </div>
+
+    <!-- Show Django messages as popup -->
+    {% if messages %}
+      <script>
+        {% for message in messages %}
+          alert("{{ message }}");
+          {% if message.tags == 'success' %}
+            window.location.href = "{% url 'login' %}";
+          {% endif %}
+        {% endfor %}
+      </script>
+    {% endif %}
+
+    <!-- Display error messages -->
+    {% if form.errors %}
+        <div class="error">
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Django Registration Form -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <label class="required">Username</label>
+        {{ form.username }}
+        
+        <label class="required">Email</label>
+        {{ form.email }}
+        
+        <label class="required">Password</label>
+        {{ form.password1 }}
+        
+        <label class="required">Confirm Password</label>
+        {{ form.password2 }}
+        
+        <label class="required">Mobile Number</label>
+        {{ form.mobile }}
+        
+        <label class="required">Country</label>
+        {{ form.country }}
+        
+        <label class="required">State</label>
+        {{ form.state }}
+        
+        <label class="required">City/District</label>
+        {{ form.city }}
+        
+        <label class="required">Area</label>
+        {{ form.area }}
+        
+        <label class="required">Pincode</label>
+        {{ form.pincode }}
+
+        <button type="submit" class="save-btn">Register</button>
+    </form>
+</div>
+
+</body>
+</html>

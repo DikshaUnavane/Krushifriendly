@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Track Your Equipment</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f3fff3;
+            color: #2d572c;
+        }
+        header {
+            background: #2d572c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        #map {
+            height: 500px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .info-box {
+            margin: 20px;
+            padding: 15px;
+            background: #e6f9e6;
+            border: 1px solid #b2d8b2;
+            border-radius: 10px;
+        }
+        .info-box h3 {
+            margin: 0 0 10px;
+            color: #256d25;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌾 Equipment Live Tracking</h1>
+    </header>
+
+    <div class="info-box">
+        <h3>Tracking Details</h3>
+        <p id="distance">Distance: calculating...</p>
+        <p id="time">Estimated Time: calculating...</p>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map').setView([{{ tool_lat }}, {{ tool_lng }}], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+        // Tool marker
+        var toolMarker = L.marker([{{ tool_lat }}, {{ tool_lng }}]).addTo(map).bindPopup("🚜 Tool Location");
+
+        // User marker (will update after GPS found)
+        var userMarker;
+
+        // Get user location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var userLat = position.coords.latitude;
+                var userLng = position.coords.longitude;
+
+                userMarker = L.marker([userLat, userLng]).addTo(map).bindPopup("📍 Your Location").openPopup();
+                map.setView([userLat, userLng], 13);
+
+                // Calculate distance (Haversine formula)
+                function calculateDistance(lat1, lon1, lat2, lon2) {
+                    var R = 6371; // km
+                    var dLat = (lat2-lat1) * Math.PI / 180;
+                    var dLon = (lon2-lon1) * Math.PI / 180;
+                    var a = 
+                        0.5 - Math.cos(dLat)/2 + 
+                        Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * 
+                        (1 - Math.cos(dLon))/2;
+
+                    return R * 2 * Math.asin(Math.sqrt(a));
+                }
+
+                var distance = calculateDistance(userLat, userLng, {{ tool_lat }}, {{ tool_lng }});
+                var estTime = (distance / 30 * 60).toFixed(2); // 30 km/h speed
+
+                document.getElementById("distance").innerText = "Distance: " + distance.toFixed(2) + " km";
+                document.getElementById("time").innerText = "Estimated Time: " + estTime + " minutes";
+
+                // Animate tool marker moving towards user
+                var steps = 100;
+                var step = 0;
+                var latStep = (userLat - {{ tool_lat }}) / steps;
+                var lngStep = (userLng - {{ tool_lng }}) / steps;
+
+                var interval = setInterval(function() {
+                    if (step >= steps) {
+                        clearInterval(interval);
+                    } else {
+                        var newLat = {{ tool_lat }} + latStep * step;
+                        var newLng = {{ tool_lng }} + lngStep * step;
+                        toolMarker.setLatLng([newLat, newLng]);
+                        step++;
+                    }
+                }, 500); // move every 0.5 sec
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+</body>
+</html>

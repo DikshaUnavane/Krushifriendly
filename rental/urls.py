@@ -21,4 +21,8 @@ urlpatterns = [
     path('subscription2/', views.subscription2, name='subscription2'),
     path('subscription3/', views.subscription3, name='subscription3'),
     path('subscription4/', views.subscription4, name='subscription4'),
+    path('add-renter/', views.add_renter, name='add_renter'),
+    path('track/', views.track_booking, name='track_booking'),
+    path('step6/', views.step6_view, name='step6'),
+
 ]

@@ -24,3 +24,13 @@ class BookingForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
+
+
+# app/forms.py
+from django import forms
+from .models import Renter
+
+class RenterForm(forms.ModelForm):
+    class Meta:
+        model = Renter
+        fields = ['name', 'phone', 'email']  # latitude and longitude will be captured automatically
